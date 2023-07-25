@@ -38,4 +38,6 @@ Run "flutterfire help" to see global options.
 flutterfire configure -acom.packagename.app
 ```
 
-Another solution would have been to go to Firebase and manually copy-paste the information to the firebase\_options.dart file, but I opted for the automatic solution.
+Another solution would have been to go to Firebase and manually copy-paste the information to the firebase\_options.dart file, but I opted for the automatic solution.  
+
+As for multiple build variants, I just separated them by what the build mode was and returned the respectable FirebaseOption in the `firebase_options.dart` file.
