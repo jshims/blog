@@ -15,11 +15,11 @@ Our website had a slow rendering time.
 
 ### Issue
 
-The biggest issue that our team found was that images were slowing down the total time to render a webpage.
+The biggest issue that our team faced was that images were slowing down the total rendering time.
 
 ### Solution
 
-Thus, our team decided to reduce the size of images that were being displayed to the users. However, rather than resizing or reducing the quality of images that the users uploaded to our platform, we decided to change the image type from jpg, png to WebP. [According to Google, by serving users WebP images, we could reduce the size by 25~34%](https://developers.google.com/speed/webp#:~:text=WebP%20is%20a%20modern%20image,in%20size%20compared%20to%20PNGs.).
+Our team decided to reduce the size of images that were being displayed to the users. We decided to change the image type from jpg, png to WebP rather than resizing or reducing the quality of images that the users uploaded to our platform. [According to Google, by serving users WebP images, we could reduce the size by 25~34%](https://developers.google.com/speed/webp#:~:text=WebP%20is%20a%20modern%20image,in%20size%20compared%20to%20PNGs.).
 
 ### Solutions
 
@@ -27,14 +27,14 @@ We came up with the following solutions:
 
 1. API server converts the images to WebP and uploads them to AWS S3 bucket
     
-2. After the images are uploaded to S3, the putObject command triggers SNS/Lambda which then converts the images and saves them to S3
+2. After the images are uploaded to S3, the creation of an object triggers SNS/Lambda which then converts the images and saves them to S3
     
 3. When the user requests the images, a Lambda function intercepts the response, converts the image on the fly and returns it to the user
     
 
-Our team decided on solution #2 since we viewed it as the most flexible one. By picking #2 we would decouple the logic of converting images to a serverless function, thereby making it more maintainable and upgradeable. If our company decided to add other processes such as resizing the images and saving them separately on S3, it would be much easier to plugin it to a serverless function. Moreover, by separating the logic to S3, our API server would be able to return a response more quickly to the user since it did not have to concern itself with additional logic.
+Our team decided on solution #2 since we viewed it as the most flexible one. By picking #2 we would decouple the logic of converting images to a serverless function, thereby making it more maintainable and upgradeable. If our company decided to add other processes such as resizing the images and saving them separately on S3, it would be much easier to plugin it to a serverless function. Moreover, by separating the logic to Lambda, our API server would be able to return a response more quickly to the user since it does not have to concern itself with additional logic.
 
-As for #3, we did consider using lambda@edge to intercept the origin response from S3, convert the image to WebP, and cache it to CloudFront whilst returning the converted image to the user. However, as of this point, Lambda@Edge has a limitation of returning images up to 1MB. That limitation could not work with our use case. For those interested in a solution similar to #3 I recommend reading these two blogs from Amazon to see if it fits your use case.
+As for #3, we did consider using Lambda@Edge to intercept the origin response from S3, convert the image to WebP, and cache it to CloudFront whilst returning the converted image to the user. However, as of this point, Lambda@Edge has a limitation of returning images up to 1MB. That limitation does not work with our use case. For those interested in a solution similar to #3 I recommend reading these two blogs from Amazon to see if it fits your use case.
 
 * [Resizing Images with Amazon CloudFront & Lambda@Edge](https://aws.amazon.com/ko/blogs/networking-and-content-delivery/resizing-images-with-amazon-cloudfront-lambdaedge-aws-cdn-blog/)
     
@@ -64,9 +64,9 @@ The diagram above is a summary of how we decided to implement our conversion log
 
 > Precautions
 > 
-> 1. SNS does not have a batch function meaning that if multiple images are uploaded it will spawn multiple lambda functions. A consideration may be adding [SQS to batch requests and using fewer lambda instances](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html)
+> 1. SNS does not have a batch function meaning that if multiple images are uploaded it will spawn multiple lambda functions. A consideration may be adding [SQS to batch requests and using fewer lambda instances](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html).
 >     
-> 2. Overwriting the original S3 object will be invoked by creating a new object. This will trigger another message to SNS/Lambda. S3 warns you of a recursion problem when using the same S3 bucket for input and output. We dealt with the issue by checking the ContentType of the image being sent to the lambda function. We overwrote the original image to be backward compatible with other images whose endpoints are saved on our DB to be served to users.
+> 2. Overwriting the original S3 object will be invoked by creating a new object. This will trigger another message to SNS/Lambda. S3 warns you of a recursion problem when using the same S3 bucket for input and output. We dealt with the issue by checking the ContentType of the image being sent to the lambda function. We overwrote the original image to be backward compatible with other images whose endpoints are saved on our DB.
 >     
 > 
 > ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1697678121692/bc7ec364-873e-47cb-8456-fe31e9a76ec0.png align="center")
@@ -86,9 +86,9 @@ To implement the process above you would need the following:
     * IAM role with s3:PutObject && GetObject policy
         
 
-Since the creation of each process may be different when you implement it I will try to roughly outline what is needed. I will assume that you have created a CloudFront distribution and linked it with a S3 as the origin server.
+I will try to roughly outline what is needed since the implementation of each process may differ when you do it. I will assume that you have created a CloudFront distribution and linked it with a S3 as the origin server.
 
-First, create a lambda function to convert the image. When creating a lambda function it is important to give it the proper permissions. Thus, create an IAM role providing it permission to get objects from S3, put objects to S3, and invalidate the cache in CloudFront. It will look similar to this:
+First, create a AWS Lambda to convert the image. When creating a Lambda it is important to give it the proper permissions. Thus, create an IAM role providing it permission to get objects from S3, put objects to S3, and invalidate the cache in CloudFront. It will look similar to this:
 
 ```json
 {
@@ -127,7 +127,7 @@ First, create a lambda function to convert the image. When creating a lambda fun
 }
 ```
 
-When writing the logic/code, I used Cloud9. However, you could choose whatever IDE is convenient for you. Write the code to convert the image, upload it to S3, and invalidate the CloudFront cache. I will share some code snippets in case you choose to use a similar environment to mine.
+When writing the logic/code, I used Cloud9. However, you can choose whatever IDE is convenient for you. Write the code to convert the image, upload it to S3, and invalidate the CloudFront cache. I will share some code snippets in case you choose to use a similar environment to mine.
 
 > architecture: x86 system
 > 
@@ -164,10 +164,11 @@ export const handler = async (event) => {
     Key: key,
   };   
 
-// from here I surrounded the logic with a try/catch
+/**
+* from here I surrounded the logic with a try/catch
+*/
   const s3Object = await s3.getObject(getParams).promise();
 
-// return if ContentType is webp
   if (s3Object.ContentType.includes('webp') || s3Object.ContentLength == 0) {
     return { status: 208 };
   }
@@ -178,14 +179,13 @@ export const handler = async (event) => {
             .toFormat('webp', { quality: quality })
             .toBuffer();
 
-// upload processed image. overwrite original
+// overwrite original image (same key)
   const uploadParams = {
     Bucket: bucket,
     Key: key,
     Body: Buffer.from(processedImage, 'binary'),
     ContentType: 'image/webp',
   };
- 
   await s3.upload(uploadParams).promise();
         
   const invalidationParams = {
@@ -200,8 +200,8 @@ export const handler = async (event) => {
       CallerReference: randomString,
     },
   };
-  
   await cloudFront.createInvalidation(invalidationParams).promise();
+
   return { status: 200 }
 // ...
 }
