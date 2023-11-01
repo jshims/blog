@@ -5,6 +5,7 @@ seoDescription: "Converting images to WebP in AWS"
 datePublished: Thu Oct 19 2023 01:59:45 GMT+0000 (Coordinated Universal Time)
 cuid: clnwjb1fh000109l47dxgevtv
 slug: converting-images-to-webp-in-aws
+cover: https://cdn.hashnode.com/res/hashnode/image/stock/unsplash/DnXqvmS0eXM/upload/ba18d2ed7048198a5fdf1f6dcf3eb35f.jpeg
 tags: aws, webp, aws-lambda, aws-sns
 
 ---
