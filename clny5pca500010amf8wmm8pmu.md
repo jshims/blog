@@ -3,6 +3,7 @@ title: "Conversion of Images to Web2 in AWS part 2"
 datePublished: Fri Oct 20 2023 05:14:30 GMT+0000 (Coordinated Universal Time)
 cuid: clny5pca500010amf8wmm8pmu
 slug: conversion-of-images-to-web2-in-aws-part-2
+cover: https://cdn.hashnode.com/res/hashnode/image/stock/unsplash/DnXqvmS0eXM/upload/ba18d2ed7048198a5fdf1f6dcf3eb35f.jpeg
 tags: aws, lambdaedge
 
 ---
