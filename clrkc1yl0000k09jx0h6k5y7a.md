@@ -52,7 +52,7 @@ Terminologies used in AOP (reference: [Spring documentation](https://docs.spring
 
 Having a simple understanding of AOP will help in further understanding how `@Transactional` is used in Spring.
 
-## @Transactional
+## `@Transactional`
 
 *reference:* [*Spring documentation*](https://docs.spring.io/spring-framework/reference/data-access/transaction.html)
 
