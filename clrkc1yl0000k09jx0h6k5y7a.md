@@ -16,7 +16,7 @@ Today, I had the opportunity to review the concept of transactions and explore h
 
 ### What are transactions
 
-A transaction is a unit of work that ensures either all of its operations are successful or none of them are. It is usually used on data sensitive operations in which the integrity of data depends on all operations being executed successfully. For instance, one can think of the transfer of money as a group of operations that need to be arranged as a unit of transaction. The transfer of money will have many operations typically including:
+A transaction is a unit of work that ensures either all of its operations are successful or none of them are. It is usually used on data sensitive operations in which the integrity of data depends on all operations being executed successfully. For instance, one can think of the transfer of money as a group of operations that need to be arranged as a unit of transaction. The money transfer process usually involves a series of operations, including:
 
 * Withdraw from one account
     
