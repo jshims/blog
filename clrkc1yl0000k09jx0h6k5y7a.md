@@ -12,7 +12,7 @@ tags: springboot, transactions
 
 # What I learned
 
-Today, I had the opportunity to review the concept of transactions and explore how the @Transactional annotation operates within a Spring Boot environment.
+Today, I had the opportunity to review the concept of transactions and explore how the `@Transactional` annotation operates within a Spring Boot environment.
 
 ### What are transactions
 
@@ -27,7 +27,7 @@ A transaction is a unit of work that ensures either all of its operations are su
 
 In the mentioned scenario, for the transfer of money to take place, all three operations must successfully execute.
 
-In Spring Boot, developers can utilize the @Transactional annotation to specify a function or functions to run as a transaction. Spring Boot employs aspect-oriented programming, a programming paradigm, to seamlessly implement transactions without requiring significant intervention from the developer.
+In Spring Boot, developers can utilize the `@Transactional` annotation to specify a function or functions to run as a transaction. Spring Boot employs aspect-oriented programming, a programming paradigm, to seamlessly implement transactions without requiring significant intervention from the developer.
 
 ### What is Aspect Oriented Programming (AOP)
 
@@ -50,13 +50,13 @@ Terminologies used in AOP (reference: [Spring documentation](https://docs.spring
 * Target object: the object that contains the join point
     
 
-Having a simple understanding of AOP will help in further understanding how @Transactional is used in Spring.
+Having a simple understanding of AOP will help in further understanding how `@Transactional` is used in Spring.
 
 ## @Transactional
 
 *reference:* [*Spring documentation*](https://docs.spring.io/spring-framework/reference/data-access/transaction.html)
 
-The @Transactional annotation utilizes AOP to run a function or functions as a transaction. In the case of transactions:
+The `@Transactional` annotation utilizes AOP to run a function or functions as a transaction. In the case of transactions:
 
 * Aspect: starting and ending a transaction
     
@@ -69,11 +69,11 @@ The @Transactional annotation utilizes AOP to run a function or functions as a t
 * Target object: usually a service component in a Spring Boot app
     
 
-To illustrate a typical flow using the @Transactional annotation, let's refer to a diagram from the Spring documentation:
+To illustrate a typical flow using the `@Transactional` annotation, let's refer to a diagram from the Spring documentation:
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1705645867841/2e852600-7efb-495b-915e-ded049e66abe.png align="center")
 
-In code, an aspect using the @Transactional annotation will appear as follows:
+In code, an aspect using the `@Transactional` annotation will appear as follows:
 
 ```kotlin
 val manager = TransactionManager.getInstance()
