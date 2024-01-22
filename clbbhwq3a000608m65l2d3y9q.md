@@ -1,4 +1,14 @@
-# What is Dependency Inversion Principle?
+---
+title: "What is Dependency Inversion Principle?"
+seoTitle: "DIP"
+seoDescription: "dependency inversion principle"
+datePublished: Tue Dec 06 2022 00:40:59 GMT+0000 (Coordinated Universal Time)
+cuid: clbbhwq3a000608m65l2d3y9q
+slug: what-is-dependency-inversion-principle
+cover: https://cdn.hashnode.com/res/hashnode/image/stock/unsplash/WE_Kv_ZB1l0/upload/d072865c7fccdfb55c735fff2d4bc51d.jpeg
+tags: dependency-inversion
+
+---
 
 Dependency Inversion Principle (DIP) means that the most flexible systems are those in which dependencies refer only to abstractions, not to concretions. That is because an abstract interface is less volatile than its implementations meaning that it is less likely to change and thus less likely to cause problems to those that refer to it.
 
