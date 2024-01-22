@@ -3,6 +3,7 @@ title: "Summary of build configurations in Android and iOS"
 datePublished: Mon Aug 21 2023 23:22:56 GMT+0000 (Coordinated Universal Time)
 cuid: cllli5z8d000c09mj4b469jv7
 slug: summary-of-build-configurations-in-android-and-ios
+cover: https://cdn.hashnode.com/res/hashnode/image/stock/unsplash/WE_Kv_ZB1l0/upload/d072865c7fccdfb55c735fff2d4bc51d.jpeg
 
 ---
 
