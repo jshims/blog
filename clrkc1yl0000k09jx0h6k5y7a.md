@@ -88,3 +88,38 @@ fun aspect(){
   }
 }
 ```
+
+### Parameter `(readonly = true)`
+
+As a Spring Boot developer, you've likely encountered numerous methods annotated with the `@Transactional(readOnly = true)` annotation. While exploring transaction concepts, I found myself intrigued by the advantages of the `readOnly` parameter and the reasons behind annotating a method specifically for read-only queries.
+
+**Benefits**
+
+* Performance
+    
+    Applying `@Transactional(readOnly=true)` provides several optimizations:
+    
+    1. No Flushing in Hibernate: No need to synchronize data between the persistence context and DBMS.
+        
+    2. No Dirty Checking: No need to detect changes in entity states (data changes).
+        
+    3. DBMS Optimizations: Potential optimizations, such as avoiding locking or reading from a read replica instead of a write-read instance (varies by DBMS).
+        
+* Clear Intent
+    
+    Other developers can easily understand that the operation is a read-only transaction. Additionally, the annotation prevents Create, Update, Delete (CUD) operations and discourages future additions of such operations.
+    
+
+**Drawbacks**
+
+* Locking
+    
+    Transactions occupy a database connection, and in the case of large transactions or operational logic within the annotated method, the connection might hinder other attempts to interact with the database.
+    
+
+> <div data-node-type="callout">
+> <div data-node-type="callout-emoji">💡</div>
+> <div data-node-type="callout-text">Why not omit the <code>readonly</code> parameter for readonly operations?</div>
+> </div>
+> 
+> After reading various resources the aforementioned performance and clear intent benefits were main reasons for using the annotation. Moreover, another performance benefit was caching. When reading from the same entity multiple times, the persistence context acts as a first-level cache, reducing the need for direct reads from the database.
