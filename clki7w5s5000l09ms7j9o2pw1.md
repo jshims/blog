@@ -3,6 +3,7 @@ title: "Adding firebase to flutter project"
 datePublished: Tue Jul 25 2023 11:32:21 GMT+0000 (Coordinated Universal Time)
 cuid: clki7w5s5000l09ms7j9o2pw1
 slug: adding-firebase-to-flutter-project
+cover: https://cdn.hashnode.com/res/hashnode/image/stock/unsplash/DnXqvmS0eXM/upload/b0f54481d6602fd9ce07cfb26ada3567.jpeg
 tags: flutter, flutterfire
 
 ---
