@@ -12,6 +12,8 @@ As a Spring developer, I found myself needing to brush up on Java annotations an
 
 Let's dive in!
 
+---
+
 # Java Annotation
 
 ## What is it?
@@ -84,6 +86,8 @@ For custom annotations you must declare a method that knows how or what to do fo
 
 Annotations serve several purposes, including providing additional compiler instructions, enhancing code readability by providing metadata directly in source code (rather than XML), and reducing boilerplate code. For other reasons please view the [JSR 308 Explained: Java Type Annotations](https://www.oracle.com/technical-resources/articles/java/ma14-architect-annotations.html) post from Oracle.
 
+---
+
 # Java Reflections
 
 ## What is it?
@@ -143,5 +147,7 @@ Java Reflection’s ability to dynamically invoke methods is used in Aspect Orie
 Java Reflection exists to bring flexible and dynamic development. It supports advanced capabilities that enable frameworks and libraries to implement features like dependency injection, component scanning, and AOP features seamlessly. However, it does have its drawbacks. Reflection should be used with an understanding of its potential performance and security drawbacks.
 
 This post was intended to review what and how annotations and reflections are used in the background of Spring development. So I won’t go into the drawbacks but, for those considering using Reflection directly, I would recommend diving deeper into its implications and best practices.
+
+---
 
 Thank you for reading! I hope this post has made it clearer how annotations and reflections operate in the background when you're working with Spring.
